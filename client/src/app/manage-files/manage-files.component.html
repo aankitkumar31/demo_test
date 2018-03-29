@@ -16,17 +16,22 @@
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Image</th>
                 <th>Modified</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let file of filesArray; let i =index">
-                <td>Demo Test 
+                <td>
                     <strong>{{file.name}}</strong> 
                     <div>
                       Created by <span class="colorBlue">Ankit Kumar</span>, 200 KB
                     </div>
+                </td>
+                <td>
+                  <img src={{file.path}} class="imgFullWidth">
+                  
                 </td>
                 <td>
                   {{dateFormat(file.createdAt)}}
@@ -44,43 +49,7 @@
                           <button (click)="sendEmail(sendEmailForm.value,file,$event.target)" [disabled]="!sendEmailForm.valid" class="btn backBlue my-2 w-100 lh-14">Submit</button>
                         </form>                        
                       </div>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-chain-broken" aria-hidden="true"></i>
-                      <span class="tooltip">Get&nbsp;Item&nbsp;Link</span>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-envelope" aria-hidden="true"></i>
-                      <span class="tooltip">Email&nbsp;Item</span>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                      <span class="tooltip">Edit&nbsp;Item</span>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-files-o" aria-hidden="true"></i>
-                      <span class="tooltip">Copy&nbsp;Item</span>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-arrows" aria-hidden="true"></i>
-                      <span class="tooltip">Move&nbsp;Item</span>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-download" aria-hidden="true"></i>
-                      <span class="tooltip">Download&nbsp;Item</span>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-area-chart" aria-hidden="true"></i>
-                      <span class="tooltip">Shoe&nbsp;Stats</span>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-comments" aria-hidden="true"></i>
-                      <span class="tooltip">Comment&nbsp;Item</span>
-                    </li>
-                    <li class="nav-item">
-                      <i class="fa fa-trash-o" aria-hidden="true"></i>
-                      <span class="tooltip">Delete&nbsp;Item</span>
-                    </li>
+                    </li>                    
                   </ul>
                 </td>
               </tr>
@@ -91,7 +60,7 @@
     </div>
 </div>
 
-<div #uploadFiles clkOutsideModal>
+<div #uploadFiles clkOutsideModal id="modalUpload">
   <div class="content-box animated fadeInDown">
     <div class="row m-0 py-3 backBlue text-left">
       <div class="col-12">

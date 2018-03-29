@@ -19,12 +19,16 @@ export class ManageFileService extends CommonService {
       super(http);
     }
 
-    getAllFiles(){
+    /* getAllFiles(data){
       return super.getValue('getAllFiles');
-    }
+    } */
 
     shareFile(data){
       return super.postValue(data,'shareFile')
     }
+
+  getAllFiles(data) {
+    return super.postValue(data, 'getAllFiles')
+  }
     
 }

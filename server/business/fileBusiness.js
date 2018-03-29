@@ -53,16 +53,16 @@ FileBusiness.prototype.fileUploadDatabase = async (doc,cb)=>{
    
 }
 
-FileBusiness.prototype.getAllFilesS3 = async (doc,cb)=>{
+FileBusiness.prototype.getAllFiles = async (doc,cb)=>{
     return new Promise((resolve,reject)=>{
         console.log("allFilesForUser")
         console.log(doc)
-        fileModel.find({'userId':doc.userId},function(err,data){
+        fileModel.find({'email':doc.email},function(err,data){
             if(err){
                 reject(err);
                 return;
             }   
-                resolve(data);
+            resolve(data);
         })
     })
    

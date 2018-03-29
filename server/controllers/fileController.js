@@ -7,7 +7,7 @@ const transporter = require('../config/mailConfig');
 var jwt = require('jsonwebtoken');
 var fs = require('fs')
 var bcrypt = require('bcryptjs');
-var serverUrl = require('../config/url').serverUrl
+var serverUrl = require('../config/url').clientUrl
 
 var File = function(){
 
@@ -15,14 +15,13 @@ var File = function(){
 
 File.prototype.upload = async function (req, res) {
     try {
-        console.log(req.files);
-
+        console.log(req.body.email);
+        //console.log(serverUrl)
         let sampleFile = req.files.avatar;
-        console.log(req.body)
-        console.log(sampleFile)
+        //console.log(sampleFile)
         // Use the mv() method to place the file somewhere on your server
         sampleFile.mv(`uploads/${sampleFile.name}`, function (err) {
-            console.log("jfdlskldsk")
+            //console.log(serverUrl)
             if (err) {
                 console.log(err);
                 res.status(500).send(err);
@@ -33,24 +32,25 @@ File.prototype.upload = async function (req, res) {
                 name: sampleFile.name,
                 data: sampleFile.data,
                 path: `${serverUrl}/uploads/${sampleFile.name}`,
-                email: sampleFile.businessEmail,
+                email: req.body.email,
             })
 
             entry.save((err, data) => {
                 if (err) {
                     if (err instanceof DuplicateErr) {
                         reject(err);
+                        res.status(404).send({ message: "error" })
                         return;
                     }
                     reject(err);
                 }
-                res.status(200).send(data);
+                res.status(200).send({ message: "success" })
 
             })
         });
     }
     catch (e) {
-        res.status(404).send(e);
+        res.status(404).send({ message: "error" });
     }
 }
 
@@ -82,9 +82,10 @@ File.prototype.share = async function(req,res){
     }
  }
 
-File.prototype.getAllFromS3 = async function(req,res){
+File.prototype.getAllFiles = async function(req,res){
     try{
-       var file = await FileBusiness.getAllFilesS3(req.body);
+        console.log(req.body);
+        var file = await FileBusiness.getAllFiles(req.body);
        res.status(200).send(file)
     }
     catch(e){

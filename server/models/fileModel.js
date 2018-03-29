@@ -6,7 +6,7 @@ var fileSchema = mongoose.Schema({
     path: { type: String },
     data:{type:String},
     createdAt:{type:Date,default:Date.now()},
-    email: { type: Schema.Types.ObjectId, ref: 'user' },
+    email: { type: String },
 },{collection:'file'})  
 
 module.exports = mongoose.model('file',fileSchema);

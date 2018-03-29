@@ -28,29 +28,22 @@ export class ManageFilesComponent implements OnInit {
 
   ngOnInit() {
     this.uploader.onBeforeUploadItem=(file)=> { debugger;}
-    this.uploader.onAfterAddingFile = (file)=> { debugger;file.withCredentials = false;
+    this.uploader.onAfterAddingFile = (file)=> { 
+      file.withCredentials = false;
       this.uploader.options.additionalParameter = {
-      businessEmail: localStorage.getItem('businessEmail')
-    };
+        email: localStorage.getItem('email')
+      };
     }
-
+    this.uploader.onCompleteAll=()=>{
+      document.querySelector('#modalUpload')['style']['display'] = 'none';
+      this.getFiles();
+    }
     this.sendEmailForm = this.fb.group({
       'guestEmail':['',[Validators.required,EmailValidation.emailValid]],
       'password':[''],
     })    
 
-    this.manageFileService.getAllFiles().subscribe(
-      res=>{
-        console.log(res);
-        this.isLoading = false;
-        this.filesArray = res;
-      },
-      err=>{
-        this.isLoading =false;
-        this.errorMsg ="Some Error Occured";
-        this.showError();
-      }
-    )
+    this.getFiles();    
   }
 
   get guestEmail()  { 
@@ -63,6 +56,25 @@ export class ManageFilesComponent implements OnInit {
   submit(){
     debugger;
     this.uploader.uploadAll();
+  }
+
+  getFiles(){
+    let data = {
+      email: localStorage.getItem('email')
+    }
+
+    this.manageFileService.getAllFiles(data).subscribe(
+      res => {
+        console.log(res);
+        this.isLoading = false;
+        this.filesArray = res;
+      },
+      err => {
+        this.isLoading = false;
+        this.errorMsg = "Some Error Occured";
+        this.showError();
+      }
+    )
   }
 
   sendEmail(formValues,file,target){debugger;

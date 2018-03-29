@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
       'fullName': ['', Validators.required],
       'password':['',Validators.required],
       'mobile':['',Validators.required],
-      'businessEmail':['',[Validators.required,EmailValidation.emailValid]],
+      'email':['',[Validators.required,EmailValidation.emailValid]],
     })
   }
   
@@ -42,8 +42,8 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls.mobile
   }
 
-  get businessEmail()  { 
-    return this.registerForm.controls.businessEmail
+  get email()  { 
+    return this.registerForm.controls.email
   }
 
   register(formValues){

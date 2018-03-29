@@ -13,7 +13,7 @@ module.exports = function(app){
 
     app.post('/uploadFile',FileController.upload.bind(FileController));
     app.post('/shareFile',token.Token,FileController.share.bind(FileController));
-    app.get('/getAllFiles',token.Token,FileController.getAllFromS3.bind(FileController));
+    app.post('/getAllFiles',FileController.getAllFiles.bind(FileController));
 
     // app.get('/test',profile.test.bind(profile));
     
