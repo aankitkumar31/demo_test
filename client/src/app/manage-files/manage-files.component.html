@@ -1,0 +1,139 @@
+
+<div class="row py-3">
+    <div class="offset-lg-1 col-lg-10 offset-md-1 col-md-10 col-12">
+      <button class="btn float-right backBlue"  triggerModal [modalTargetId]="uploadFiles">Upload Files</button>
+    </div>
+</div>
+
+<div class="row py-3">
+    <div class="offset-lg-1 col-lg-10 offset-md-1 col-md-10 col-12">
+      <div class="row border" style="height:70vh">
+        <!-- <div class="col-3 borderRight">
+          Treeview
+        </div> -->
+        <div class="col-12 table-responsive p-0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Modified</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let file of filesArray; let i =index">
+                <td>Demo Test 
+                    <strong>{{file.name}}</strong> 
+                    <div>
+                      Created by <span class="colorBlue">Ankit Kumar</span>, 200 KB
+                    </div>
+                </td>
+                <td>
+                  {{dateFormat(file.createdAt)}}
+                </td>
+                <td class="colorBlue"> 
+                  <ul class="nav">
+                    <li class="nav-item">
+                      <i class="fa fa-share-alt" aria-hidden="true" (click)="showEmailBox(i)"></i>
+                      <span class="tooltip">Share&nbsp;Item</span>
+                      <div class="shareEmail" #i>
+                        <h4>Share File <span class="float-right cross" (click)="close($event.target)">X</span></h4>
+                        <form [formGroup]="sendEmailForm">
+                          <input type="text" class="form-control my-2 py-2" formControlName="guestEmail" placeholder="Email">
+                          <input type="password" class="form-control my-2 py-2" formControlName="password" placeholder="Password (Optional)">
+                          <button (click)="sendEmail(sendEmailForm.value,file,$event.target)" [disabled]="!sendEmailForm.valid" class="btn backBlue my-2 w-100 lh-14">Submit</button>
+                        </form>                        
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-chain-broken" aria-hidden="true"></i>
+                      <span class="tooltip">Get&nbsp;Item&nbsp;Link</span>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                      <span class="tooltip">Email&nbsp;Item</span>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                      <span class="tooltip">Edit&nbsp;Item</span>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-files-o" aria-hidden="true"></i>
+                      <span class="tooltip">Copy&nbsp;Item</span>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-arrows" aria-hidden="true"></i>
+                      <span class="tooltip">Move&nbsp;Item</span>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-download" aria-hidden="true"></i>
+                      <span class="tooltip">Download&nbsp;Item</span>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-area-chart" aria-hidden="true"></i>
+                      <span class="tooltip">Shoe&nbsp;Stats</span>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-comments" aria-hidden="true"></i>
+                      <span class="tooltip">Comment&nbsp;Item</span>
+                    </li>
+                    <li class="nav-item">
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      <span class="tooltip">Delete&nbsp;Item</span>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>      
+    </div>
+</div>
+
+<div #uploadFiles clkOutsideModal>
+  <div class="content-box animated fadeInDown">
+    <div class="row m-0 py-3 backBlue text-left">
+      <div class="col-12">
+        <h1><i class="fa fa-cloud-upload"></i> Upload Files</h1>
+      </div>
+    </div>
+    <div class="row m-0">
+      <div class="col-12">
+        <div ng2FileDrop
+                 [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                 (fileOver)="fileOverBase($event)"
+                 [uploader]="uploader"
+                 class="well my-drop-zone">
+                <p class="m-0" [ngClass] ="{'v-hidden':uploader.queue.length != 0}">Drop Files Here</p>
+        </div>
+        <input class="upload-button" id="attachment_0" ng2FileSelect
+          [uploader]="uploader" multiple name="attachment[0]" type="file" placeholder="upload Doc" value=""
+          required="" #fileInput>
+        <button class="btn backBlue upload-button" (click)="triggerUplaod(fileInput)">Select files</button>
+        <table class="table uploadProgress">               
+            <tbody>
+            <tr *ngFor="let item of uploader.queue">
+                <td><strong>{{ item?.file?.name }}</strong></td>
+                <td >
+                    <div class="progress" style="margin-bottom: 0; width:100px;">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                    </div>
+                </td>
+                <td nowrap>
+                  <button type="button" class="btn btn-success btn-xs"
+                          (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                      <span class="glyphicon glyphicon-upload"></span> Upload
+                  </button>
+                  <button type="button" class="btn btn-warning btn-xs"
+                          (click)="item.cancel()" [disabled]="!item.isUploading">
+                      <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                  </button>                 
+              </td>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>  
+</div>

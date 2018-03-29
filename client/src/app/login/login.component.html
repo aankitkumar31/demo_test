@@ -1,0 +1,20 @@
+<div class="middle-box text-center loginscreen animated fadeInDown">
+  <div>
+      <h3>Login</h3>
+      <form class="m-t" [formGroup]="loginForm">
+          <div class="form-group">
+              <input type="email" formControlName="email" class="form-control" placeholder="Username" required="">
+              <span class="error" *ngIf="!email.valid && email.touched">Username Required</span>
+          </div>
+          <div class="form-group">
+              <input type="password" formControlName="password" class="form-control" placeholder="Password" required="">
+              <span class="error" *ngIf="!password.valid && password.touched">Password Required</span>
+          </div>
+          <button type="submit" [disabled]="!loginForm.valid" (click)="login(loginForm.value)" class="btn btn-success block full-width m-b psLoginformBtn">Login</button>
+          
+      </form> 
+      <a class="btn btn-sm btn-white btn-block" routerLink="../register">Create an account</a>
+      <br />
+       
+  </div>
+</div>

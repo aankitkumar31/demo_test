@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+body{
+   background-color: #F4F4F4 !important;
+}
+
+.error{
+    color: red;
+}
+
+.alert{
+    position: fixed;
+    top: 65px;
+    left: 45%;
+    border-radius: 0;
+    padding: 8px;
+}    
+
+.alert-success{
+    background-color: #3c763d;
+    border-color: #d0e9c6;
+    color: #fff;
+}
+
+.alert-danger {
+    background-color: #a94442;
+    border-color: #ebcccc;
+    color: #fff;
+}
+
+.loader-container{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+.loader-container img{
+    position: absolute;
+    top: 49%;
+    left: 49%;
+    height: 80px;
+    width: 80px;
+}

@@ -1,0 +1,38 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+    <img src="./assets/image/loader.gif" alt="">
+</div>
+
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+  <div>
+    
+    <h3>Register</h3>
+    <form class="m-t" [formGroup]="registerForm">
+      <div class="form-group">
+          <input type="text" formControlName="fullName" class="form-control" placeholder="Full Name" required>
+          <span class="error" *ngIf="!fullName.valid && fullName.touched">Full Name Required</span>
+      </div>      
+      <div class="form-group">
+          <input type="email" formControlName="businessEmail" class="form-control" placeholder="Email" required>
+          <span class="error" *ngIf="!businessEmail.valid && businessEmail.touched">Email Required</span>          
+      </div>
+        <div class="form-group">
+            <input type="text" formControlName="mobile" class="form-control" placeholder="Mobile No" required>
+            <span class="error" *ngIf="!mobile.valid && mobile.touched">Mobile No required</span>
+        </div>
+        <div class="form-group">
+            <input type="password" formControlName="password" class="form-control" placeholder="password" required>
+            <span class="error" *ngIf="!password.valid && password.touched">password required</span>
+        </div>
+      <button type="submit" [disabled]="!registerForm.valid" (click)="register(registerForm.value)" class="btn btn-success block full-width m-b psRegFormBtn">Register</button>
+    </form>
+    <a class="btn btn-sm btn-default btn-block" routerLink="../login">Login</a>
+  </div>
+</div>
